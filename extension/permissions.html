@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Grant Microphone Access</title>
+    <style>
+      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 24px; }
+      button { padding: 10px 14px; border-radius: 8px; border: 1px solid #ccc; background: #fff; cursor: pointer; }
+      .hint { color: #555; margin-top: 12px; font-size: 14px; }
+      .ok { color: #0a0; font-weight: 600; }
+    </style>
+  </head>
+  <body>
+    <h1>Microphone Permission Required</h1>
+    <p>Click below to grant microphone access to the extension. Approve the Chrome prompt.</p>
+    <button id="grant">Grant Microphone</button>
+    <div class="hint">If you don’t see a prompt, open extension details and enable “Allow access to microphone”.</div>
+    <div id="status" class="hint"></div>
+    <script type="module" src="permissions.js"></script>
+  </body>
+  </html>
+
+

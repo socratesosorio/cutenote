@@ -1,0 +1,52 @@
+{
+  "manifest_version": 3,
+  "name": "Granola Realtime Transcriber",
+  "version": "0.1.0",
+  "description": "Real-time microphone transcription with a hideable side panel and export.",
+  "action": {
+    "default_title": "Transcriber",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage",
+    "downloads",
+    "tabs",
+    "offscreen",
+    "microphone"
+  ],
+  "host_permissions": [
+    "http://localhost:3000/*",
+    "https://docs.google.com/*"
+  ],
+  "optional_permissions": [],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "content.css"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://docs.google.com/document/*"],
+      "js": ["docs_inject.js"],
+      "run_at": "document_idle",
+      "all_frames": true
+    }
+  ]
+}
+

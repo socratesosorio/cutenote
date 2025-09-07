@@ -1,0 +1,62 @@
+#granola-transcribe-panel {
+  position: fixed;
+  top: 64px;
+  right: 16px;
+  width: 360px;
+  min-width: 260px;
+  max-width: 80vw;
+  max-height: 70vh;
+  box-shadow: 0 12px 30px rgba(2,6,23,.15);
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: linear-gradient(180deg,#ffffff, #f8fafc);
+  color: #0f172a;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  z-index: 2147483647;
+  resize: both;
+  overflow: auto;
+}
+
+#granola-transcribe-panel .gp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-bottom: 1px solid #e2e8f0;
+  cursor: move;
+  user-select: none;
+}
+
+#granola-transcribe-panel .gp-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+#granola-transcribe-panel .gp-actions {
+  display: flex;
+  gap: 6px;
+}
+
+#granola-transcribe-panel .gp-btn {
+  appearance: none;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+#granola-transcribe-panel .gp-body {
+  padding: 8px 12px;
+  overflow: auto;
+  max-height: 55vh;
+}
+
+#granola-transcribe-panel .gp-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 2px 0; }
+#granola-transcribe-panel .gp-sentence { font-size: 13px; line-height: 1.6; user-select: text; }
+#granola-transcribe-panel .gp-copy { opacity: 0; transition: opacity .15s; font-size: 12px; padding: 2px 6px; border: 1px solid #cbd5e1; border-radius: 6px; background: #fff; cursor: pointer; }
+#granola-transcribe-panel .gp-row:hover .gp-copy { opacity: 1; }
+
+
+
