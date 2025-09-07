@@ -19,6 +19,16 @@ class AudioManager: NSObject, ObservableObject {
     // Audio format for recording (16kHz for Whisper compatibility)
     private let recordingFormat = AVAudioFormat(standardFormatWithSampleRate: 16000, channels: 1)!
     
+    // Buffer size optimization for different hardware
+    private var bufferSize: AVAudioFrameCount {
+        // Use smaller buffer on Apple Silicon for better responsiveness
+        #if arch(arm64)
+        return 1024
+        #else
+        return 4096
+        #endif
+    }
+    
     override init() {
         super.init()
         setupAudioSession()
@@ -159,8 +169,8 @@ class AudioManager: NSObject, ObservableObject {
             // Create audio file for recording
             audioFile = try AVAudioFile(forWriting: recordingURL, settings: recordingFormat.settings)
             
-            // Install tap on input node
-            inputNode.installTap(onBus: 0, bufferSize: 4096, format: inputFormat) { [weak self] buffer, _ in
+            // Install tap on input node with optimized buffer size
+            inputNode.installTap(onBus: 0, bufferSize: bufferSize, format: inputFormat) { [weak self] buffer, _ in
                 guard let self = self, let audioFile = self.audioFile else { return }
                 
                 do {

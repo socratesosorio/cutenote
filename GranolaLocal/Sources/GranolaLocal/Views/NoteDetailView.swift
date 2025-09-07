@@ -124,15 +124,19 @@ struct NoteDetailView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(.red)
+                .accessibilityLabel("Stop recording meeting audio")
+                .keyboardShortcut(.space, modifiers: [.command])
                 
                 // Recording duration
                 Text(formatDuration(audioManager.recordingDuration))
                     .font(.caption)
                     .monospacedDigit()
                     .foregroundColor(.secondary)
+                    .accessibilityLabel("Recording duration: \(formatDuration(audioManager.recordingDuration))")
                 
                 // Audio level indicator
                 AudioLevelMeter(level: audioManager.audioLevel)
+                    .accessibilityLabel("Audio level meter")
             }
         } else {
             Button("Start Recording") {
@@ -141,6 +145,8 @@ struct NoteDetailView: View {
             .buttonStyle(.borderedProminent)
             .tint(.red)
             .disabled(note.isProcessing)
+            .accessibilityLabel("Start recording meeting audio")
+            .keyboardShortcut(.space, modifiers: [.command])
         }
     }
     
@@ -150,11 +156,13 @@ struct NoteDetailView: View {
             // Action buttons bar
             if !isRecording && note.hasTranscript && !note.hasEnhancedNotes {
                 HStack {
-                    Button("Enhance Notes") {
-                        enhanceNotes()
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .disabled(aiProcessor.isProcessing || aiProcessor.apiKeyStatus != .valid)
+                                    Button("Enhance Notes") {
+                    enhanceNotes()
+                }
+                .buttonStyle(.borderedProminent)
+                .disabled(aiProcessor.isProcessing || aiProcessor.apiKeyStatus != .valid)
+                .keyboardShortcut("e", modifiers: [.command])
+                .accessibilityLabel("Enhance notes with AI")
                     
                     Spacer()
                     

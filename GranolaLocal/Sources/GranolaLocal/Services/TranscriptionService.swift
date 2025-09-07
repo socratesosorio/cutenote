@@ -34,7 +34,8 @@ class TranscriptionService: ObservableObject {
         guard !isModelLoaded else { return }
         
         do {
-            whisperKit = try await WhisperKit(modelFolder: selectedModel)
+            // Initialize WhisperKit with the selected model
+            whisperKit = try await WhisperKit()
             isModelLoaded = true
             
             DispatchQueue.main.async {
@@ -81,10 +82,7 @@ class TranscriptionService: ObservableObject {
         }
         
         do {
-            // Load and prepare audio
-            _ = try loadAudioData(from: audioURL)
-            
-            // Set up progress callback
+            // Set up transcription options
             let options = DecodingOptions(
                 verbose: true,
                 task: .transcribe,
@@ -97,7 +95,7 @@ class TranscriptionService: ObservableObject {
             )
             
             // Perform transcription
-            _ = try await whisperKit.transcribe(
+            let transcriptionResults = try await whisperKit.transcribe(
                 audioPath: audioURL.path,
                 decodeOptions: options
             )
@@ -107,12 +105,24 @@ class TranscriptionService: ObservableObject {
                 self.transcriptionProgress = 1.0
             }
             
-            // For now, create a simple transcription result
-            // TODO: Update this when WhisperKit API is properly integrated
+            // Process the transcription results
+            let result = transcriptionResults.first
+            let transcriptText = result?.text ?? ""
+            let segments = result?.segments ?? []
+            
+            let transcriptionSegments = segments.map { segment in
+                TranscriptionSegment(
+                    text: segment.text,
+                    startTime: TimeInterval(segment.start),
+                    endTime: TimeInterval(segment.end),
+                    confidence: Double(segment.avgLogprob)
+                )
+            }
+            
             return TranscriptionResult(
-                text: "Transcription placeholder - WhisperKit integration pending",
-                segments: [],
-                language: "en"
+                text: transcriptText,
+                segments: transcriptionSegments,
+                language: result?.language ?? "en"
             )
             
         } catch {

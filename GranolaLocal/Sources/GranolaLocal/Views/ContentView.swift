@@ -74,7 +74,9 @@ struct SidebarView: View {
                                 // TODO: Implement rename
                             }
                             Button("Delete", role: .destructive) {
-                                notesManager.deleteFolder(folder)
+                                DispatchQueue.main.async {
+                                    notesManager.deleteFolder(folder)
+                                }
                             }
                         }
                     }
@@ -147,15 +149,21 @@ struct NotesListView: View {
                     .tag(note)
                     .contextMenu {
                         Button("Duplicate") {
-                            _ = notesManager.duplicateNote(note)
+                            DispatchQueue.main.async {
+                                _ = notesManager.duplicateNote(note)
+                            }
                         }
                         Button("Star") {
-                            note.isStarred.toggle()
-                            notesManager.saveNote(note)
+                            DispatchQueue.main.async {
+                                note.isStarred.toggle()
+                                notesManager.saveNote(note)
+                            }
                         }
                         Divider()
                         Button("Delete", role: .destructive) {
-                            notesManager.deleteNote(note)
+                            DispatchQueue.main.async {
+                                notesManager.deleteNote(note)
+                            }
                         }
                     }
             }

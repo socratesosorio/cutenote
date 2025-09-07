@@ -1,0 +1,51 @@
+# Xcode
+.DS_Store
+*.xcodeproj
+*.xcworkspace
+*.playground
+*.xccheckout
+*.xcscmblueprint
+*.build/
+build/
+DerivedData/
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+
+# Swift Package Manager
+.swiftpm/
+Package.resolved
+
+# CocoaPods
+Pods/
+*.xcworkspace
+!Podfile
+!Podfile.lock
+
+# Carthage
+Carthage/
+
+# fastlane
+fastlane/report.xml
+fastlane/screenshots/
+fastlane/test_output/
+
+# User-specific files
+*.xcuserdatad/
+*.xcsettings
+*.xcuserstate
+
+# Logs
+*.log
+
+# Crash Reports
+*.crash
+
+# Other temporary files
+*~.nib
+*.swp
+.idea/
+.vscode/
+
+# Sensitive Information (Example - adjust as needed)
+GoogleService-Info.plist
+Secrets.plist

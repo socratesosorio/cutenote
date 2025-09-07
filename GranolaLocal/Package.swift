@@ -23,6 +23,11 @@ let package = Package(
                 "OpenAI"
             ],
             path: "Sources/GranolaLocal"
+        ),
+        .testTarget(
+            name: "GranolaLocalTests",
+            dependencies: ["GranolaLocal"],
+            path: "Tests/GranolaLocalTests"
         )
     ]
 )
